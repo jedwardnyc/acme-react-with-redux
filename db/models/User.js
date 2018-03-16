@@ -2,7 +2,12 @@ const { Sequelize } = require('../conn');
 const conn = require('../conn');
 
 const User = conn.define('user', {
-  name: Sequelize.STRING
+  name: {
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
+  }
 });
 
 module.exports = User; 

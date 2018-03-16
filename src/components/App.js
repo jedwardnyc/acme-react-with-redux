@@ -4,6 +4,7 @@ import store, { getUser, getUsers, getNewUsers, deleteUser } from "../store";
 import Users from './Users';
 import User from './User';
 import axios from 'axios';
+import Nav from './Nav';
 
 
 export default class App extends React.Component{
@@ -14,12 +15,15 @@ export default class App extends React.Component{
 
   render(){
     return (
-      <Router>
-        <div>
-          <Route path='/' exact render = { () => <Users/>}/>
-          <Route path='/users/:id' render = { ({ match }) => <User id={match.params.id} /> }/>
-        </div>
-      </Router>
+      <div>
+      <Nav />
+        <Router>
+          <div>
+            <Route path='/' exact render = { () => <Users/>}/>
+            <Route path='/users/:id' render = { ({ match }) => <User id={match.params.id} /> }/>
+          </div>
+        </Router>
+      </div>
     )
   }
 }

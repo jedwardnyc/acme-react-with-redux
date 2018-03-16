@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import store, { getUser, getUsers, getNewUsers, deleteUser } from "../store";
+import store, { getUser, getUsers, getNewUsers, clear, errorHandler } from "../store";
 import axios from 'axios';
 
 export default class Users extends React.Component{
@@ -14,7 +14,10 @@ export default class Users extends React.Component{
   componentDidMount(){
     axios.get('/api/users')
       .then( res => res.data )
-      .then( users => store.dispatch(getUsers(users)))
+      .then( users => {
+        store.dispatch(getUsers(users))
+      })
+      .catch(err => store.dispatch(errorHandler(err.response.data)))
     this.unsubscribe = store.subscribe( () => this.setState(store.getState()))
   }
 
@@ -29,10 +32,13 @@ export default class Users extends React.Component{
   handleSubmit(ev){
     ev.preventDefault()
     const user = this.state.user;
-    console.log(user)
     axios.post('/api/users', { name: user })
       .then( res => res.data )
-      .then( users => store.dispatch(getNewUsers(users)) )
+      .then( user => {
+        store.dispatch(getNewUsers(user)) 
+        store.dispatch(clear()) 
+      })
+      .catch(err => store.dispatch(errorHandler(err.response.data)))
   }
 
   handleDelete(ev, user){
@@ -41,7 +47,7 @@ export default class Users extends React.Component{
       .then( res => res.data )
       .then( () => {
         const users = this.state.users.filter(_user => _user.id === user.id*1 ? false : true)
-        store.dispatch(deleteUser(users)) 
+        store.dispatch(getUsers(users)) 
       })
   }
 
@@ -50,9 +56,19 @@ export default class Users extends React.Component{
       <div>
         <h1>Users</h1>
         <form onSubmit={this.handleSubmit}>
-          <input value={this.state.user.name} onChange={this.handleEvent} placeholder='User Name' />
+          <div className='form-control form-control-lg'>
+          <input value={this.state.user} onChange={this.handleEvent} placeholder='User Name' />
           <button className='btn btn-primary'> Create </button>
+          </div>
         </form>
+        {
+          this.state.error ? <div id="error-message" className="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Oh no!</strong> You need to input a name.
+          <button onClick={()=> document.getElementById('error-message').remove()} className="close" data-dismiss="alert">
+            <span> &times; </span>
+          </button>
+        </div> : null 
+        }
         <ul className="list-group">
           {
             this.state.users.map(user => {
