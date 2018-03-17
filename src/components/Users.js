@@ -64,7 +64,7 @@ export default class Users extends React.Component{
         {
           this.state.error ? 
           <div id="error-message" className="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Oh no!</strong> You need to input a name.
+            <strong>Oh no!</strong> You need to input a unique name.
             <button onClick={()=> document.getElementById('error-message').remove()} className="close" data-dismiss="alert">
               <span> &times; </span>
             </button>
