@@ -62,20 +62,20 @@ export default class Users extends React.Component{
           </div>
         </form>
         {
-          this.state.error ? <div id="error-message" className="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Oh no!</strong> You need to input a name.
-          <button onClick={()=> document.getElementById('error-message').remove()} className="close" data-dismiss="alert">
-            <span> &times; </span>
-          </button>
-        </div> : null 
+          this.state.error ? 
+          <div id="error-message" className="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Oh no!</strong> You need to input a name.
+            <button onClick={()=> document.getElementById('error-message').remove()} className="close" data-dismiss="alert">
+              <span> &times; </span>
+            </button>
+          </div> : null 
         }
         <ul className="list-group">
           {
             this.state.users.map(user => {
               return ( 
                 <li className="list-group-item" key={user.id}> 
-                  <Link to={`/users/${user.id}`} style={{color: 'black'}}><h3>{user.name}</h3></Link>
-                  <br />
+                  <Link to={`/users/${user.id}`} style={{color: 'black'}}><h4>{user.name}</h4></Link>
                   <button className='btn btn-danger' onClick={(ev) => this.handleDelete(ev, user) }> Delete </button>
                 </li>
               )
