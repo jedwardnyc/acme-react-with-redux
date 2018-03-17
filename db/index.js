@@ -1,14 +1,16 @@
 const conn = require('./conn');
 const User = require('./models/User');
+const faker = require('faker');
 
 const syncAndSeed = () => {
   conn.sync({force: true})
     .then(()=>{
       return Promise.all([
-        User.create({name: 'Logic'}),
-        User.create({name: 'Run The Jewels'}),
-        User.create({name: 'Watsky'}),
-        User.create({name: 'J-Reeks'}),
+        User.create({name: faker.internet.userName('jacob', 'rico')}),
+        User.create({name: faker.internet.userName()}),
+        User.create({name: faker.internet.userName()}),
+        User.create({name: faker.internet.userName()}),
+        User.create({name: faker.internet.userName()}),
       ])
     })
 }
