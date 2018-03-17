@@ -53,7 +53,7 @@ export default class Users extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className='container-fluid'>
         <h1>Users</h1>
         <form onSubmit={this.handleSubmit}>
           <div className='form-control form-control-lg'>
@@ -74,7 +74,7 @@ export default class Users extends React.Component{
             this.state.users.map(user => {
               return ( 
                 <li className="list-group-item" key={user.id}> 
-                  <Link to={`/users/${user.id}`}>{user.name}</Link>
+                  <Link to={`/users/${user.id}`} style={{color: 'black'}}><h3>{user.name}</h3></Link>
                   <br />
                   <button className='btn btn-danger' onClick={(ev) => this.handleDelete(ev, user) }> Delete </button>
                 </li>

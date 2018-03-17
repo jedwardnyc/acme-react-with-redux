@@ -16,12 +16,15 @@ export default class App extends React.Component{
   render(){
     return (
       <div>
-      <Nav />
+      
         <Router>
+        <div>
+        {/* <Nav /> */}
           <div>
             <Route path='/' exact render = { () => <Users/>}/>
             <Route path='/users/:id' render = { ({ match }) => <User id={match.params.id} /> }/>
           </div>
+        </div>  
         </Router>
       </div>
     )

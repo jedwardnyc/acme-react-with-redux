@@ -37,7 +37,7 @@ export default class User extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className='container-fluid'>
         <h1>Update User? </h1>
         <br />
         <form onSubmit={this.update}>
@@ -50,7 +50,7 @@ export default class User extends React.Component{
           <button className='btn btn-success'> Update </button>
           <button 
             onClick={() => store.dispatch(clear())} 
-            className='btn btn-danger'> <Link to='/' style={{ textDecoration: 'none', color: "white" }}> Cancel </Link></button>
+            className='btn btn-danger'> <Link to='/' style={{ color: "white" }}> Cancel </Link></button>
         </form>
       </div>
     );
